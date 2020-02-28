@@ -59,7 +59,8 @@ StreamProvider.value(
 ### Reading a value
 
 The easiest way to read a value is by using the static method
-`StreamProvider.of<T>(BuildContext context)`.
+
+StreamProvider.of<T>(BuildContext context)`.
 
 or
 
