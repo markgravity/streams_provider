@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:rxdart/rxdart.dart';
 
+/// A class that wrapper a BehaviorSubject
+/// provides a friendly way to work with BehaviorSubject
 class MutableValueStream<T> extends StreamView<T> implements ValueStream<T> {
   factory MutableValueStream(T value) {
 
