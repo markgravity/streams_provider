@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:stream_provider/src/stream_providable.dart';
+import 'streams_providable.dart';
 
-class StreamProvider<T extends StreamProvidable> extends SingleChildStatelessWidget {
-  StreamProvider({
+class StreamsProvider<T extends StreamsProvidable> extends SingleChildStatelessWidget {
+  StreamsProvider({
     Key key,
     @required Create<T> create,
     Widget child,
@@ -18,22 +18,22 @@ class StreamProvider<T extends StreamProvidable> extends SingleChildStatelessWid
         );
 
   /// Takes a [provider] and a [child] which will have access to the [provider] via
-  /// `StreamProvider.of(context)`.
-  /// When `StreamProvider.value` is used, the [provider] will not be automatically
+  /// `StreamsProvider.of(context)`.
+  /// When `StreamsProvider.value` is used, the [provider] will not be automatically
   /// closed.
-  /// As a result, `StreamProvider.value` should mainly be used for providing
+  /// As a result, `StreamsProvider.value` should mainly be used for providing
   /// existing [provider]s to new routes.
   ///
-  /// A new [provider] should not be created in `StreamProvider.value`.
+  /// A new [provider] should not be created in `StreamsProvider.value`.
   /// [provider]s should always be created using the default constructor within
   /// [create].
   ///
   /// ```dart
-  /// StreamProvider.value(
-  ///   value: StreamProvider.of<ProviderA>(context),
+  /// StreamsProvider.value(
+  ///   value: StreamsProvider.of<ProviderA>(context),
   ///   child: ScreenA(),
   /// );
-  StreamProvider.value({
+  StreamsProvider.value({
     Key key,
     @required T value,
     Widget child,
@@ -43,9 +43,9 @@ class StreamProvider<T extends StreamProvidable> extends SingleChildStatelessWid
           child: child,
         );
 
-  /// Internal constructor responsible for creating the [StreamProvider].
-  /// Used by the [StreamProvider] default and value constructors.
-  StreamProvider._({
+  /// Internal constructor responsible for creating the [StreamsProvider].
+  /// Used by the [StreamsProvider] default and value constructors.
+  StreamsProvider._({
     Key key,
     @required Create<T> create,
     Dispose<T> dispose,
@@ -77,13 +77,13 @@ class StreamProvider<T extends StreamProvidable> extends SingleChildStatelessWid
   }
 
   /// Method that allows widgets to access a [provider] instance as long as their
-  /// `BuildContext` contains a [StreamProvider] instance.
+  /// `BuildContext` contains a [StreamsProvider] instance.
   ///
   /// If we want to access an instance of `BlocA` which was provided higher up
   /// in the widget tree we can do so via:
   ///
   /// ```dart
-  /// StreamProvider.of<Provider>(context)
+  /// StreamsProvider.of<Provider>(context)
   /// ```
   static T of<T>(BuildContext context) {
     try {
@@ -91,9 +91,9 @@ class StreamProvider<T extends StreamProvidable> extends SingleChildStatelessWid
     } on ProviderNotFoundException catch (_) {
       throw FlutterError(
         """
-        StreamProvider.of() called with a context that does not contain a Provider of type $T.
-        No ancestor could be found starting from the context that was passed to StreamProvider.of<$T>().
-        This can happen if the context you used comes from a widget above the StreamProvider.
+        StreamsProvider.of() called with a context that does not contain a provider of type $T.
+        No ancestor could be found starting from the context that was passed to StreamsProvider.of<$T>().
+        This can happen if the context you used comes from a widget above the StreamsProvider.
         The context used was: $context
         """,
       );
@@ -103,14 +103,14 @@ class StreamProvider<T extends StreamProvidable> extends SingleChildStatelessWid
 
 /// Extends the `BuildContext` class with the ability
 /// to perform a lookup based on a `StreamProvidable` type.
-extension StreamProviderExtension on BuildContext {
+extension StreamsProviderExtension on BuildContext {
   /// Performs a lookup using the `BuildContext` to obtain
-  /// the nearest ancestor `StreamProvidable` of type [B].
+  /// the nearest ancestor `StreamProvidable` of type [P].
   ///
   /// Calling this method is equivalent to calling:
   ///
   /// ```dart
-  /// StreamProvider.of<B>(context)
+  /// StreamsProvider.of<P>(context)
   /// ```
-  B provider<B>() => StreamProvider.of<B>(this);
+  P provider<P extends StreamsProvidable>() => StreamsProvider.of<P>(this);
 }

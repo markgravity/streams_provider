@@ -1,6 +1,6 @@
-import 'package:stream_provider/stream_provider.dart';
+import 'package:streams_provider/streams_provider.dart';
 
-class SignInProvider implements StreamProvidable {
+class SignInProvider implements StreamsProvidable {
 
   // Username
   final username = MutableValueStream<String>(null);

@@ -1,5 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:stream_provider/src/mutable_value_stream.dart';
+import 'package:test/test.dart';
+import 'package:streams_provider/streams_provider.dart';
 
 void main() {
   //

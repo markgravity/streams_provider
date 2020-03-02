@@ -1,6 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:stream_provider/src/mutable_value_stream.dart';
-import 'package:stream_provider/src/extensions.dart';
+import 'package:test/test.dart';
+import 'package:streams_provider/streams_provider.dart';
 
 void main() {
   //
@@ -14,25 +13,29 @@ void main() {
 
   test("#1 combineLatest()", () async {
     final stream = [a, b].combineLatest();
-    expect(stream, emitsInOrder([
-      [1,2],
-      [3,2],
-    ]));
+    expect(
+        stream,
+        emitsInOrder([
+          [1, 2],
+          [3, 2],
+        ]));
     a.value = 3;
   });
 
   test("#2 merge()", () async {
     final stream = [a, b].merge();
-    expect(stream, emitsInOrder([1,2,3]));
+    expect(stream, emitsInOrder([1, 2, 3]));
     b.value = 3;
   });
 
   test("#3 zip()", () async {
     final stream = [a, b].zip();
-    expect(stream, emitsInOrder([
-      [1,2],
-      [3,4],
-    ]));
+    expect(
+        stream,
+        emitsInOrder([
+          [1, 2],
+          [3, 4],
+        ]));
     a.value = 3;
     b.value = 4;
   });

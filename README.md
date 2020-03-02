@@ -1,71 +1,131 @@
-# Stream Provider
+# Streams Provider
 
 ![Coverage](https://raw.githubusercontent.com/markgravity/stream_provider/master/coverage_badge.svg?sanitize=true) [![GitHub issues](https://img.shields.io/github/issues/markgravity/stream_provider)](https://github.com/markgravity/stream_provider/issues) [![GitHub stars](https://img.shields.io/github/stars/markgravity/stream_provider)](https://github.com/markgravity/stream_provider/stargazers) [![GitHub license](https://img.shields.io/github/license/markgravity/object_mapper)](https://github.com/markgravity/stream_provider/blob/master/LICENSE)
 
 ------
 
-A package makes it easy for you to use stream with Provider.
+It provides an elegant and effectively ways to use stream in Provider.
 
-**Pros**
+## Streams Widgets
+**StreamsProvider** is a Flutter widget which provides a provider to its children via `Provider.of<T>(context)`. It is used as a dependency injection (DI) widget so that a single instance of a provider can be provided to multiple widgets within a subtree.
 
-* Doesn't need call  `notifyListeners` everytime, everywhere.
-
-- Able to use power of `stream` and RxDart, when you have to deal with complex tasks
-
-**Cons**
-
-* Need to `close()` every Stream that you declare into Provider inside  `dispose()`
-
-
-
-## Usage
-
-### Exposing a value
-
-#### Exposing a new object instance
-
-Create a new object inside `create`.
+In most cases, `StreamsProvider` should be used to create new provider which will be made available to the rest of the subtree. In this case, since `StreamsProvider` is responsible for creating the provider, it will automatically handle closing the provider.
 
 ```dart
-StreamProvider(
-  create: (_) => new MyModel(),
-  child: ...
-
+StreamsProvider(
+  create: (BuildContext context) => ProviderA(),
+  child: ChildA(),
+);
 ```
 
-
-
-#### Reusing an existing object instance:
-
-If you already have an object instance and want to expose it,
-you should use the `.value` constructor of a provider.
-
-Failing to do so may call the `dispose` method of your object when it is still in use.
-
-Use StreamProvider.value` to provide an existing
-`Provider.
+In some cases, `StreamsProvider` can be used to provide an existing provider to a new portion of the widget tree. This will be most commonly used when an existing provider needs to be made available to a new route. In this case, `StreamsProvider` will not automatically close the bloc since it did not create it.
 
 ```dart
-MyProvider variable;
+StreamsProvider.value(
+  value: StreamsProvider.of<ProviderA>(context),
+  child: ScreenA(),
+);
+```
 
-StreamProvider.value(
-  value: variable,
-  child: ...
+then from either ChildA, or ScreenA we can retrieve ProviderA with:
+
+// with extensions
+`context.provider<ProviderA>();`
+
+// without extensions
+`StreamsProvider.of<ProviderA>(context)`
+
+**StreamsSelector** is a Flutter widget which select streams from a provider and invokes the builder in response to signal emits in the selector stream.
+
+```dart
+StreamsSelector<ProviderA, DataType>(
+  selector: (context, provider) {
+     // select streams from ProviderA
+  },
+  builder: (context, data, child) {
+    // return widget here based on selector stream emits
+  },
 )
 ```
 
+**StreamsListener** is a Flutter widget which takes a StreamsWidgetListener and a selector and invokes the listener in response to signal emits in the selector.  It should be used for functionality that needs to occur once per signal emit such as navigation, showing a SnackBar, showing a Dialog, etc...
+listener is only called once for each signal emit.
 
+```dart
+StreamsListener<ProviderA, DataType>(
+  selector: (context, provider) {
+     // select streams from ProviderA
+  },
+  listener: (context, data) {
+    // do stuff here based on data changes
+  },
+  child: Container(),
+)
+```
 
-### Reading a value
+# Usage #
+Lets take a look at how to use `StreamsSelector` to hook up a `CounterPage` widget to a `CounterProvider`.
+# counter_provider.dart #
+```dart
+class CounterProvider implements StreamsProvidable {
+  final _counter = MutableValueStream<int>(0);
+  ValueStream<int> counter => _counter;
 
-The easiest way to read a value is by using the static method
+  void incrementCounter() {
+    _counter.value++;
+  }
 
-StreamProvider.of<T>(BuildContext context)`.
+  void decrementCounter() {
+    _counter.value—;
+  }
+}
+```
 
-or
+# counter_page.dart #
+```dart
+class CounterPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final CounterProvider counterProvider = context.provider<CounterProvider>();
 
-`context.provider<T>()`
-
-This method will look up in the widget tree starting from the widget associated
-with the `BuildContext` passed and it will return the nearest variable of type
-`T` found (or throw if nothing is found)
+    return Scaffold(
+      appBar: AppBar(title: Text('Counter')),
+      body: StreamsSelector<CounterProvider, int>(
+        selector: (context, provider) => provider.counter,
+        builder: (context, count, child) {
+          return Center(
+            child: Text(
+              '$count',
+              style: TextStyle(fontSize: 24.0),
+            ),
+          );
+        },
+      ),
+      floatingActionButton: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 5.0),
+            child: FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () {
+                counterProvider.incrementCounter();
+              },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 5.0),
+            child: FloatingActionButton(
+              child: Icon(Icons.remove),
+              onPressed: () {
+                counterProvider.decrementCounter();
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
