@@ -47,6 +47,6 @@ class SignInProvider implements StreamsProvidable {
   }
 
   Future<void> dispose() {
-    return null;
+    return StreamsDisposeBag([username, password]).dispose();
   }
 }

@@ -70,11 +70,11 @@ class _StreamsSelector0State<T> extends SingleChildState<StreamsSelector0<T>> {
 /// [StreamsSelector] will obtain a value using [StreamProvider.of], then pass that value
 /// to `selector`. That `selector` callback is then tasked to return an object
 /// that contains only the information needed for `builder` to complete.
-class StreamsSelector<A, S> extends StreamsSelector0<S> {
+class StreamsSelector<P, T> extends StreamsSelector0<T> {
   StreamsSelector({
     Key key,
-    @required ValueWidgetBuilder<S> builder,
-    @required Stream<S> Function(BuildContext, A) selector,
+    @required ValueWidgetBuilder<T> builder,
+    @required Stream<T> Function(BuildContext, P) selector,
     Widget child,
   })  : assert(selector != null),
         super(

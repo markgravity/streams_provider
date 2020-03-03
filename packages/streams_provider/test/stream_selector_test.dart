@@ -109,6 +109,7 @@ void main() {
     stream.value = message;
     await tester.pumpAndSettle();
     expect(find.text(message), findsOneWidget);
+    stream.close();
   });
 
   testWidgets("#2 StreamSelector", (tester) async {
