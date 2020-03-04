@@ -1,7 +1,7 @@
 name: streams_provider
 description: It provides an elegent and effectively ways to use stream in Provider.
 version: 0.0.3
-homepage: https://github.com/markgravity/stream_provider
+homepage: https://github.com/markgravity/stream_providers
 
 environment:
   sdk: ">=2.6.0 <3.0.0"

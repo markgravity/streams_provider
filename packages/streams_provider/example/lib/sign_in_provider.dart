@@ -1,13 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:streams_provider/streams_provider.dart';
 
 class SignInProvider implements StreamsProvidable {
+  SignInProvider() {
+    username = usernameTextController.textStream();
+  }
 
   // Username
-  final username = MutableValueStream<String>(null);
+  final usernameTextController = TextEditingController();
+  MutableValueStream<String> username;
   Stream<String> get usernameError => username.map((o) => validateUsername(o));
 
   // Password
-  final password = MutableValueStream<String>(null);
+  final password = MutableValueStream<String>();
   Stream<String> get passwordError => password.map((o) => validatePassword(o));
 
   // No error on any fields

@@ -10,9 +10,8 @@ class SignInScreen extends StatelessWidget {
       body: StreamsListener<SignInProvider, List>(
         selector: (_, provider) => [provider.usernameError, provider.passwordError].combineLatest(),
         listener: (context, error) {
-
           // alert dialog
-          print(error);
+//          print(error);
         },
         child: Center(
           child: Container(
@@ -28,8 +27,8 @@ class SignInScreen extends StatelessWidget {
                 SizedBox(
                   height: 4,
                 ),
-                TextField(
-                  onChanged: (text) => _provider.username.value = text,
+                TextFormField(
+                  controller: _provider.usernameTextController,
                 ),
                 SizedBox(
                   height: 4,
@@ -39,11 +38,11 @@ class SignInScreen extends StatelessWidget {
                     return provider.usernameError;
                   },
                   builder: (_, error, __) => error != null
-                                             ? Text(
-                    error,
-                    style: TextStyle(color: Colors.red),
-                  )
-                                             : Container(),
+                      ? Text(
+                          error,
+                          style: TextStyle(color: Colors.red),
+                        )
+                      : Container(),
                 ),
                 SizedBox(
                   height: 20,
@@ -64,28 +63,28 @@ class SignInScreen extends StatelessWidget {
                 StreamsSelector<SignInProvider, String>(
                   selector: (_, provider) => provider.passwordError,
                   builder: (_, error, __) => error != null
-                                             ? Text(
-                    error,
-                    style: TextStyle(color: Colors.red),
-                  )
-                                             : Container(),
+                      ? Text(
+                          error,
+                          style: TextStyle(color: Colors.red),
+                        )
+                      : Container(),
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 StreamsSelector<SignInProvider, bool>(
                   selector: (_, provider) => provider.isAllValid,
-                  builder: (_, bool, __) => bool
-                                            ? FlatButton(
-                    onPressed: () {},
-                    child: Center(
-                      child: Text("Login"),
-                    ),
-                  )
-                                            : Text(
-                    "*Please fillout all fields.".toUpperCase(),
-                    style: TextStyle(color: Colors.deepOrange),
-                  ),
+                  builder: (_, bool, __) => true
+                      ? FlatButton(
+                          onPressed: () {},
+                          child: Center(
+                            child: Text("Login"),
+                          ),
+                        )
+                      : Text(
+                          "*Please fillout all fields.".toUpperCase(),
+                          style: TextStyle(color: Colors.deepOrange),
+                        ),
                 ),
               ],
             ),

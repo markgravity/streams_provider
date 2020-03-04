@@ -6,7 +6,8 @@ import 'package:rxdart/rxdart.dart';
 /// a friendly way to work with [BehaviorSubject]
 ///
 /// It's a mutable [ValueStream] allows to set and get [MutableValueStream.value]
-class MutableValueStream<T> extends StreamView<T> implements ValueStream<T>, Sink<T> {
+class MutableValueStream<T> extends StreamView<T>
+    implements ValueStream<T>, Sink<T> {
   factory MutableValueStream([T value]) {
     // ignore: close_sinks
     final subject = BehaviorSubject<T>.seeded(value);

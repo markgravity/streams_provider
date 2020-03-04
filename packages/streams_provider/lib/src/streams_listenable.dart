@@ -4,7 +4,6 @@ import 'package:streams_provider/src/streams_providable.dart';
 
 /// A listenable interface for [StreamsListener0]
 abstract class StreamsListenable0<T> {
-
   /// A function that will return a [Stream]
   /// it changes will trigger [handler]
   Stream<T> selector(BuildContext context);
@@ -22,7 +21,8 @@ abstract class StreamsListenable<P extends StreamsProvidable, T> {
 }
 
 /// A listenable interface for [StreamsListener2]
-abstract class StreamsListenable2<P1 extends StreamsProvidable, P2 extends StreamsProvidable, T> {
+abstract class StreamsListenable2<P1 extends StreamsProvidable,
+    P2 extends StreamsProvidable, T> {
   //
   Stream<T> selector(BuildContext context, P1 provider1, P2 provider2);
   void handler(BuildContext context, P1 provider1, P2 provider2, T data);

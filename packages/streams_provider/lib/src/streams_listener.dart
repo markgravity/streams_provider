@@ -32,7 +32,8 @@ class StreamsListener0<T> extends SingleChildStatefulWidget {
   /// a new object with only a limited number of properties.
   ///
   /// Must not be `null` if [listenable] is `null`
-  Stream<T> Function(BuildContext) get _selector => selector ?? listenable.selector;
+  Stream<T> Function(BuildContext) get _selector =>
+      selector ?? listenable.selector;
   final Stream<T> Function(BuildContext) selector;
 
   /// A function that will be called if [selector] emits a signal.
@@ -47,7 +48,8 @@ class StreamsListener0<T> extends SingleChildStatefulWidget {
   final StreamsListenable0<T> listenable;
 
   @override
-  SingleChildState<StreamsListener0<T>> createState() => _StreamsListener0State<T>();
+  SingleChildState<StreamsListener0<T>> createState() =>
+      _StreamsListener0State<T>();
 }
 
 class _StreamsListener0State<T> extends SingleChildState<StreamsListener0<T>> {
@@ -74,7 +76,8 @@ class _StreamsListener0State<T> extends SingleChildState<StreamsListener0<T>> {
   }
 }
 
-class StreamsListener<P extends StreamsProvidable, T> extends StreamsListener0<T> {
+class StreamsListener<P extends StreamsProvidable, T>
+    extends StreamsListener0<T> {
   StreamsListener({
     Key key,
     P provider,
@@ -102,8 +105,8 @@ class StreamsListener<P extends StreamsProvidable, T> extends StreamsListener0<T
         );
 }
 
-class StreamsListener2<P1 extends StreamsProvidable, P2 extends StreamsProvidable, T>
-    extends StreamsListener0<T> {
+class StreamsListener2<P1 extends StreamsProvidable,
+    P2 extends StreamsProvidable, T> extends StreamsListener0<T> {
   StreamsListener2({
     Key key,
     P1 provider1,
