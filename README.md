@@ -1,6 +1,6 @@
 # Streams Provider
 
-![Coverage](https://raw.githubusercontent.com/markgravity/stream_provider/master/coverage_badge.svg?sanitize=true) [![GitHub issues](https://img.shields.io/github/issues/markgravity/stream_provider)](https://github.com/markgravity/stream_provider/issues) [![GitHub stars](https://img.shields.io/github/stars/markgravity/stream_provider)](https://github.com/markgravity/stream_provider/stargazers) [![GitHub license](https://img.shields.io/github/license/markgravity/object_mapper)](https://github.com/markgravity/stream_provider/blob/master/LICENSE)
+![Coverage](https://raw.githubusercontent.com/markgravity/stream_provider/master/packages/streams_provider/coverage_badge.svg?sanitize=true) [![GitHub issues](https://img.shields.io/github/issues/markgravity/stream_provider)](https://github.com/markgravity/stream_provider/issues) [![GitHub stars](https://img.shields.io/github/stars/markgravity/stream_provider)](https://github.com/markgravity/stream_provider/stargazers) [![GitHub license](https://img.shields.io/github/license/markgravity/object_mapper)](https://github.com/markgravity/stream_provider/blob/master/LICENSE)
 
 ------
 
