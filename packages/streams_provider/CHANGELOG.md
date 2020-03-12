@@ -1,3 +1,11 @@
+## 0.0.4+3
+
+* Throw error when stream got an error
+
+## 0.0.4+2
+
+* Update home_url.
+
 ## 0.0.4
 
 * Extension `TextEditingController` with `textStream()`, `selectionStream()`, `valueStream()`.

@@ -47,6 +47,7 @@ class _StreamsSelector0State<T> extends SingleChildState<StreamsSelector0<T>> {
     return StreamBuilder<T>(
       stream: stream,
       builder: (context, snapshot) {
+        if (snapshot.hasError) throw snapshot.error;
         // TODO: Need to check that should remove this line bellow
 //        if (!snapshot.hasData) return Container();
 
