@@ -5,6 +5,7 @@ import 'package:streams_provider/streams_provider.dart';
 
 class TestWidget extends StatelessWidget {
   TestWidget(this.message);
+  static const textKey = Key("test_widget_text_key");
 
   final Stream<String> message;
   @override
@@ -12,10 +13,11 @@ class TestWidget extends StatelessWidget {
     return Center(
       child: StreamsSelector0<String>(
         selector: (_) => message,
-        builder: (_, message, __) => Text(
+        builder: (_, message, __) => message != null ? Text(
           message,
+          key: textKey,
           textDirection: TextDirection.ltr,
-        ),
+        ) : SizedBox.shrink(),
       ),
     );
   }
@@ -112,6 +114,7 @@ void main() {
     stream.close();
   });
 
+
   testWidgets("#2 StreamSelector", (tester) async {
     final message = "It's a message";
     final provider = MessageProvider();
@@ -135,5 +138,21 @@ void main() {
     provider2.error.value = message;
     await tester.pumpAndSettle();
     expect(find.text(message + message), findsOneWidget);
+  });
+
+  testWidgets("#4 StreamSelector with null value", (tester) async {
+    final stream = MutableValueStream<String>();
+    await tester.pumpWidget(TestWidget(stream));
+    expect(find.byKey(TestWidget.textKey), findsNothing);
+
+    stream.value = "test";
+    await tester.pumpAndSettle();
+    expect(find.byKey(TestWidget.textKey), findsOneWidget);
+
+    stream.value = null;
+    await tester.pumpAndSettle();
+    expect(find.byKey(TestWidget.textKey), findsNothing);
+
+    stream.close();
   });
 }

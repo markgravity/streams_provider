@@ -1,3 +1,7 @@
+## 0.0.4+4
+
+* Fix behaviour with `null` value on `StreamsSelector`
+
 ## 0.0.4+3
 
 * Throw error when stream got an error

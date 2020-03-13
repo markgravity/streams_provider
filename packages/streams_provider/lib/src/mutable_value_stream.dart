@@ -38,3 +38,7 @@ class MutableValueStream<T> extends StreamView<T>
     return _subject.close();
   }
 }
+
+class NullValue<T>{
+
+}
