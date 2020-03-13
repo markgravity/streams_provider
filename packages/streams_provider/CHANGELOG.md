@@ -1,3 +1,7 @@
+## 0.0.4+6
+
+* Fix bugs on `StreamsSelector`: need to compare data
+
 ## 0.0.4+5
 
 * Fix bugs on `StreamsSelector`

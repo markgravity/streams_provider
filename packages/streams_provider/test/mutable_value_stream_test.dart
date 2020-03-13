@@ -27,6 +27,6 @@ void main() {
 
   test("#4 Empty value", () {
     stream = MutableValueStream<int>();
-    expect(stream.hasValue, isFalse);
+    expect(stream.hasValue, isTrue);
   });
 }

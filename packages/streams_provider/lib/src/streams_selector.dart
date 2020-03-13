@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart' hide StreamProvider;
 import 'package:provider/single_child_widget.dart';
@@ -38,6 +39,7 @@ class StreamsSelector0<T> extends SingleChildStatefulWidget {
 }
 
 class _StreamsSelector0State<T> extends SingleChildState<StreamsSelector0<T>> {
+  T value;
   Widget cache;
   Widget oldWidget;
   bool isInitialEventSkipped = false;
@@ -65,8 +67,9 @@ class _StreamsSelector0State<T> extends SingleChildState<StreamsSelector0<T>> {
         }
 
         final selected = snapshot.data;
-        var shouldInvalidateCache = oldWidget != widget;
+        var shouldInvalidateCache = oldWidget != widget || !const DeepCollectionEquality().equals(value, selected);
         if (shouldInvalidateCache) {
+          value = selected;
           oldWidget = widget;
           cache = widget.builder(
             context,

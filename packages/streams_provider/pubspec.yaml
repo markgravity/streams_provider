@@ -1,6 +1,6 @@
 name: streams_provider
 description: It provides an elegent and effectively ways to use stream in Provider.
-version: 0.0.4+5
+version: 0.0.4+6
 homepage: https://github.com/markgravity/streams_provider/tree/master/packages/streams_provider
 
 environment:
@@ -11,6 +11,7 @@ dependencies:
     sdk: flutter
   rxdart: ^0.23.1
   provider: ^4.0.4
+  collection: ^1.14.11
 
 dev_dependencies:
   flutter_test:
