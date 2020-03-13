@@ -41,15 +41,24 @@ class _StreamsSelector0State<T> extends SingleChildState<StreamsSelector0<T>> {
   Widget cache;
   Widget oldWidget;
   bool isInitialEventSkipped = false;
+  Stream<T> stream;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Get a stream from selector
+    stream = widget.selector(context);
+  }
 
   @override
   Widget buildWithChild(BuildContext context, Widget child) {
-    final stream = widget.selector(context);
     return StreamBuilder<T>(
       stream: stream,
       builder: (context, snapshot) {
-
         if (snapshot.hasError) throw snapshot.error;
+
+        // Ignore a null event when create a stream
         if (!isInitialEventSkipped) {
           isInitialEventSkipped = true;
           return SizedBox.shrink();
@@ -58,6 +67,7 @@ class _StreamsSelector0State<T> extends SingleChildState<StreamsSelector0<T>> {
         final selected = snapshot.data;
         var shouldInvalidateCache = oldWidget != widget;
         if (shouldInvalidateCache) {
+          oldWidget = widget;
           cache = widget.builder(
             context,
             selected,

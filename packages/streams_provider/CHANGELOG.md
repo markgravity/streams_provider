@@ -1,3 +1,7 @@
+## 0.0.4+5
+
+* Fix bugs on `StreamsSelector`
+
 ## 0.0.4+4
 
 * Fix behaviour with `null` value on `StreamsSelector`
