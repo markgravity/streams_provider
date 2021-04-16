@@ -1,3 +1,7 @@
+## 0.0.4+7
+
+* Add `MultiStreamListener`
+
 ## 0.0.4+6
 
 * Fix bugs on `StreamsSelector`: need to compare data

@@ -11,3 +11,4 @@ export 'src/streams_dispose_bag.dart';
 export 'package:rxdart/rxdart.dart';
 export 'src/matchers.dart';
 export 'src/extensions/text_editing_controller.dart';
+export 'src/multi_streams_listener.dart';
