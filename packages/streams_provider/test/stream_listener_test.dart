@@ -4,7 +4,7 @@ import 'package:streams_provider/streams_provider.dart';
 
 class MessageProvider implements StreamsProvidable {
   final message = MutableValueStream<String>("");
-  String listenedMessage;
+  late String listenedMessage;
 
   @override
   Future<void> dispose() {

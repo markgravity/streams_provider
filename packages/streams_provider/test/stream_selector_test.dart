@@ -7,13 +7,13 @@ class TestWidget extends StatelessWidget {
   TestWidget(this.message);
   static const textKey = Key("test_widget_text_key");
 
-  final Stream<String> message;
+  late final Stream<String> message;
   @override
   Widget build(BuildContext context) {
     return Center(
       child: StreamsSelector0<String>(
         selector: (_) => message,
-        builder: (_, message, __) => message != null ? Text(
+        builder: (_, message, __) => message != "" ? Text(
           message,
           key: textKey,
           textDirection: TextDirection.ltr,
@@ -24,7 +24,7 @@ class TestWidget extends StatelessWidget {
 }
 
 class MessageProvider implements StreamsProvidable {
-  final message = MutableValueStream<String>("");
+  late final message = MutableValueStream<String>("");
 
   @override
   Future<void> dispose() {
@@ -44,7 +44,7 @@ class ErrorProvider implements StreamsProvidable {
 class App extends StatelessWidget {
   App(this.provider, this.widget, [this.provider2]);
 
-  final ErrorProvider provider2;
+  final ErrorProvider? provider2;
   final MessageProvider provider;
   final Widget widget;
   @override
@@ -53,7 +53,7 @@ class App extends StatelessWidget {
       providers: [
         StreamsProvider(create: (_) => provider),
         StreamsProvider(
-          create: (_) => provider2,
+          create: (_) => provider2!,
         )
       ],
       child: widget,
@@ -93,9 +93,9 @@ class TestWidget3 extends StatelessWidget {
 
 extension StreamExtension<T extends String> on Stream<T> {
   Stream<T> operator +(other) {
-    if (other is String) return this.map((o) => o + other);
+    if (other is String) return this.map((o) => o + other) as Stream<T>;
 
-    if (other is Stream<T>) return [this, other].combineLatest().map((o) => o.join(""));
+    if (other is Stream<T>) return [this, other].combineLatest().map((o) => o.join("")) as Stream<T>;
 
     throw AssertionError("Type is not supported");
   }
@@ -141,7 +141,7 @@ void main() {
   });
 
   testWidgets("#4 StreamSelector with null value", (tester) async {
-    final stream = MutableValueStream<String>();
+    final stream = MutableValueStream<String>("null");
     await tester.pumpWidget(TestWidget(stream));
     expect(find.byKey(TestWidget.textKey), findsNothing);
 
@@ -149,7 +149,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byKey(TestWidget.textKey), findsOneWidget);
 
-    stream.value = null;
+    stream.value = "";
     await tester.pumpAndSettle();
     expect(find.byKey(TestWidget.textKey), findsNothing);
 

@@ -1,3 +1,7 @@
+## 0.0.5
+
+* Support `Null safety`
+
 ## 0.0.4+8
 
 * Add `MultiStreamListener`

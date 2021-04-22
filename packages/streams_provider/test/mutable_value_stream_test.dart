@@ -3,7 +3,7 @@ import 'package:streams_provider/streams_provider.dart';
 
 void main() {
   //
-  MutableValueStream stream;
+  late MutableValueStream stream;
 
   tearDown(() {
     stream.close();
@@ -26,7 +26,7 @@ void main() {
   });
 
   test("#4 Empty value", () {
-    stream = MutableValueStream<int>();
+    stream = MutableValueStream<int>(0);
     expect(stream.hasValue, isTrue);
   });
 }

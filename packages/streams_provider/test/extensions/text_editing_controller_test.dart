@@ -9,11 +9,11 @@ class Test {
     stream = controller.textStream();
   }
   final controller = TextEditingController(text: "default");
-  MutableValueStream stream;
+  late MutableValueStream stream;
 }
 
 void main() {
-  TextEditingController controller;
+  late TextEditingController controller;
 
   setUp(() {
     controller = TextEditingController(text: "default");

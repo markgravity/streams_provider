@@ -8,8 +8,7 @@ class StreamsDisposeBag {
                 .map(
                   (o) => _StreamsDisposable(o),
                 )
-                .toList() ??
-            [];
+                .toList();
 
   //
   List<_StreamsDisposable> _disposables;

@@ -11,12 +11,11 @@ import 'streams_provider.dart';
 class StreamsSelector0<T> extends SingleChildStatefulWidget {
   /// Both `builder` and `selector` must not be `null`.
   StreamsSelector0({
-    Key key,
-    @required this.selector,
-    @required this.builder,
-    Widget child,
-  })  : assert(builder != null),
-        assert(selector != null),
+    Key? key,
+    required this.selector,
+    required this.builder,
+    Widget? child,
+  })  :
         super(key: key, child: child);
 
   /// A function that obtains some [InheritedWidget] and map their content into
@@ -39,11 +38,11 @@ class StreamsSelector0<T> extends SingleChildStatefulWidget {
 }
 
 class _StreamsSelector0State<T> extends SingleChildState<StreamsSelector0<T>> {
-  T value;
-  Widget cache;
-  Widget oldWidget;
+  T? value;
+  Widget? cache;
+  Widget? oldWidget;
   bool isInitialEventSkipped = false;
-  Stream<T> stream;
+  Stream<T>? stream;
 
   @override
   void initState() {
@@ -54,11 +53,11 @@ class _StreamsSelector0State<T> extends SingleChildState<StreamsSelector0<T>> {
   }
 
   @override
-  Widget buildWithChild(BuildContext context, Widget child) {
+  Widget buildWithChild(BuildContext context, Widget? child) {
     return StreamBuilder<T>(
       stream: stream,
       builder: (context, snapshot) {
-        if (snapshot.hasError) throw snapshot.error;
+        if (snapshot.hasError) throw snapshot.error!;
 
         // Ignore a null event when create a stream
         if (!isInitialEventSkipped) {
@@ -73,11 +72,11 @@ class _StreamsSelector0State<T> extends SingleChildState<StreamsSelector0<T>> {
           oldWidget = widget;
           cache = widget.builder(
             context,
-            selected,
+            selected!,
             child,
           );
         }
-        return cache;
+        return cache!;
       },
     );
   }
@@ -91,11 +90,11 @@ class _StreamsSelector0State<T> extends SingleChildState<StreamsSelector0<T>> {
 /// that contains only the information needed for `builder` to complete.
 class StreamsSelector<P, T> extends StreamsSelector0<T> {
   StreamsSelector({
-    Key key,
-    @required ValueWidgetBuilder<T> builder,
-    @required Stream<T> Function(BuildContext, P) selector,
-    Widget child,
-  })  : assert(selector != null),
+    Key? key,
+    required ValueWidgetBuilder<T> builder,
+    required Stream<T> Function(BuildContext, P) selector,
+    Widget? child,
+  })  :
         super(
           key: key,
           builder: builder,
@@ -106,11 +105,11 @@ class StreamsSelector<P, T> extends StreamsSelector0<T> {
 
 class StreamsSelector2<A, B, S> extends StreamsSelector0<S> {
   StreamsSelector2({
-    Key key,
-    @required ValueWidgetBuilder<S> builder,
-    @required Stream<S> Function(BuildContext, A, B) selector,
-    Widget child,
-  })  : assert(selector != null),
+    Key? key,
+    required ValueWidgetBuilder<S> builder,
+    required Stream<S> Function(BuildContext, A, B) selector,
+    Widget? child,
+  })  :
         super(
           key: key,
           builder: builder,

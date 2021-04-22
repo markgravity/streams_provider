@@ -6,14 +6,14 @@ import 'streams_providable.dart';
 class StreamsProvider<T extends StreamsProvidable>
     extends SingleChildStatelessWidget {
   StreamsProvider({
-    Key key,
-    @required Create<T> create,
-    Widget child,
-    bool lazy,
+    Key? key,
+    required Create<T> create,
+    Widget? child,
+    bool? lazy,
   }) : this._(
           key: key,
           create: create,
-          dispose: (_, provider) => provider?.dispose(),
+          dispose: (_, provider) => provider.dispose(),
           child: child,
           lazy: lazy,
         );
@@ -35,9 +35,9 @@ class StreamsProvider<T extends StreamsProvidable>
   ///   child: ScreenA(),
   /// );
   StreamsProvider.value({
-    Key key,
-    @required T value,
-    Widget child,
+    Key? key,
+    required T value,
+    Widget? child,
   }) : this._(
           key: key,
           create: (_) => value,
@@ -47,9 +47,9 @@ class StreamsProvider<T extends StreamsProvidable>
   /// Internal constructor responsible for creating the [StreamsProvider].
   /// Used by the [StreamsProvider] default and value constructors.
   StreamsProvider._({
-    Key key,
-    @required Create<T> create,
-    Dispose<T> dispose,
+    Key? key,
+    required Create<T> create,
+    Dispose<T>? dispose,
     this.child,
     this.lazy,
   })  : _create = create,
@@ -57,18 +57,18 @@ class StreamsProvider<T extends StreamsProvidable>
         super(key: key, child: child);
 
   /// [child] and its descendants which will have access to the [bloc].
-  final Widget child;
+  final Widget? child;
 
   /// Whether or not the [Provider] being provided should be lazily created.
   /// Defaults to `true`.
-  final bool lazy;
+  final bool? lazy;
 
-  final Dispose<T> _dispose;
+  final Dispose<T>? _dispose;
 
   final Create<T> _create;
 
   @override
-  Widget buildWithChild(BuildContext context, Widget child) {
+  Widget buildWithChild(BuildContext context, Widget? child) {
     return InheritedProvider<T>(
       create: _create,
       dispose: _dispose,

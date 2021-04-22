@@ -8,7 +8,7 @@ import 'package:rxdart/rxdart.dart';
 /// It's a mutable [ValueStream] allows to set and get [MutableValueStream.value]
 class MutableValueStream<T> extends StreamView<T>
     implements ValueStream<T>, Sink<T> {
-  factory MutableValueStream([T value]) {
+  factory MutableValueStream(T value) {
     // ignore: close_sinks
     final subject = BehaviorSubject<T>.seeded(value);
     return MutableValueStream._(subject);
@@ -37,6 +37,12 @@ class MutableValueStream<T> extends StreamView<T>
   Future<void> close() {
     return _subject.close();
   }
+
+  @override
+  ErrorAndStackTrace? get errorAndStackTrace => throw UnimplementedError();
+
+  @override
+  ValueWrapper<T>? get valueWrapper => throw UnimplementedError();
 }
 
 class NullValue<T>{

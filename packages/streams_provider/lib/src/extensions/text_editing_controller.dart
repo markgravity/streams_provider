@@ -13,10 +13,9 @@ extension TextEditingControllerWithStreams on TextEditingController {
     // Set a new text to controller
     // when stream is emitted
     stream.listen((text) {
-      print(this);
       if (isLock) return;
       isLock = true;
-      this?.text = text;
+      this.text = text;
       isLock = false;
     });
 
@@ -44,7 +43,7 @@ extension TextEditingControllerWithStreams on TextEditingController {
     stream.listen((data) {
       if (isLock) return;
       isLock = true;
-      this?.selection = data;
+      this.selection = data;
       isLock = false;
     });
 
@@ -72,7 +71,7 @@ extension TextEditingControllerWithStreams on TextEditingController {
     stream.listen((data) {
       if (isLock) return;
       isLock = true;
-      this?.value = data;
+      this.value = data;
       isLock = false;
     });
 

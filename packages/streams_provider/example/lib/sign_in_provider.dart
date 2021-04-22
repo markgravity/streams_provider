@@ -12,7 +12,7 @@ class SignInProvider implements StreamsProvidable {
   Stream<String> get usernameError => username.map((o) => validateUsername(o));
 
   // Password
-  final password = MutableValueStream<String>();
+  final password = MutableValueStream<String>("");
   Stream<String> get passwordError => password.map((o) => validatePassword(o));
 
   // No error on any fields
