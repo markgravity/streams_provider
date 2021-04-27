@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:streams_provider/streams_provider.dart';
@@ -9,12 +8,12 @@ class Test {
     stream = controller.textStream();
   }
   final controller = TextEditingController(text: "default");
+  // ignore: close_sinks
   late MutableValueStream stream;
 }
 
 void main() {
   late TextEditingController controller;
-
   setUp(() {
     controller = TextEditingController(text: "default");
   });
@@ -22,7 +21,7 @@ void main() {
   test("#1 textStream()", () async {
     final stream = controller.textStream();
 
-    stream.value = "a";
+    stream.add("a");
     await Future.delayed(Duration(microseconds: 1));
     expect(controller.text, equals("a"));
 
@@ -34,7 +33,7 @@ void main() {
   test("#2 selectionStream()", () async {
     final stream = controller.selectionStream();
 
-    stream.value = TextSelection(baseOffset: 0, extentOffset: 0);
+    stream.add(TextSelection(baseOffset: 0, extentOffset: 0));
     await Future.delayed(Duration(microseconds: 1));
     expect(controller.selection, equals(stream.value));
 
@@ -46,7 +45,7 @@ void main() {
   test("#3 valueStream()", () async {
     final stream = controller.valueStream();
 
-    stream.value = TextEditingValue(text: "a");
+    stream.add(TextEditingValue(text: "a"));
     await Future.delayed(Duration(microseconds: 1));
     expect(controller.value, equals(stream.value));
 
@@ -54,10 +53,4 @@ void main() {
     expect(stream.value, equals(controller.value));
     stream.close();
   });
-
-//  test("#4 Memory leak check", () {
-//    var test = Test();
-//    test.stream.value = "a";
-//    test = null;
-//  });
 }

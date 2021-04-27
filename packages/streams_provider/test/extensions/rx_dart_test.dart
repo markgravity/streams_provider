@@ -3,7 +3,9 @@ import 'package:streams_provider/streams_provider.dart';
 
 void main() {
   //
+  // ignore: close_sinks
   MutableValueStream? a;
+  // ignore: close_sinks
   MutableValueStream? b;
 
   setUp(() {
@@ -19,13 +21,13 @@ void main() {
           [1, 2],
           [3, 2],
         ]));
-    a!.value = 3;
+    a!.add(3);
   });
 
   test("#2 merge()", () async {
     final stream = [a!, b!].merge();
     expect(stream, emitsInOrder([1, 2, 3]));
-    b!.value = 3;
+    b!.add(3);
   });
 
   test("#3 zip()", () async {
@@ -36,8 +38,8 @@ void main() {
           [1, 2],
           [3, 4],
         ]));
-    a!.value = 3;
-    b!.value = 4;
+    a!.add(3);
+    b!.add(4);
   });
 
   test("#4 mapEvery()", () async {

@@ -8,7 +8,8 @@ class SignInScreen extends StatelessWidget {
     final _provider = StreamsProvider.of<SignInProvider>(context);
     return Scaffold(
       body: StreamsListener<SignInProvider, List>(
-        selector: (_, provider) => [provider.usernameError, provider.passwordError].combineLatest(),
+        selector: (_, provider) =>
+            [provider.usernameError, provider.passwordError].combineLatest(),
         listener: (context, error) {
           // alert dialog
 //          print(error);

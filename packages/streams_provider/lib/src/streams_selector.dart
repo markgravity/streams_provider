@@ -15,8 +15,7 @@ class StreamsSelector0<T> extends SingleChildStatefulWidget {
     required this.selector,
     required this.builder,
     Widget? child,
-  })  :
-        super(key: key, child: child);
+  }) : super(key: key, child: child);
 
   /// A function that obtains some [InheritedWidget] and map their content into
   /// a new object with only a limited number of properties.
@@ -66,7 +65,8 @@ class _StreamsSelector0State<T> extends SingleChildState<StreamsSelector0<T>> {
         }
 
         final selected = snapshot.data;
-        var shouldInvalidateCache = oldWidget != widget || !const DeepCollectionEquality().equals(value, selected);
+        var shouldInvalidateCache = oldWidget != widget ||
+            !const DeepCollectionEquality().equals(value, selected);
         if (shouldInvalidateCache) {
           value = selected;
           oldWidget = widget;
@@ -94,8 +94,7 @@ class StreamsSelector<P, T> extends StreamsSelector0<T> {
     required ValueWidgetBuilder<T> builder,
     required Stream<T> Function(BuildContext, P) selector,
     Widget? child,
-  })  :
-        super(
+  }) : super(
           key: key,
           builder: builder,
           selector: (context) => selector(context, StreamsProvider.of(context)),
@@ -109,8 +108,7 @@ class StreamsSelector2<A, B, S> extends StreamsSelector0<S> {
     required ValueWidgetBuilder<S> builder,
     required Stream<S> Function(BuildContext, A, B) selector,
     Widget? child,
-  })  :
-        super(
+  }) : super(
           key: key,
           builder: builder,
           selector: (context) => selector(

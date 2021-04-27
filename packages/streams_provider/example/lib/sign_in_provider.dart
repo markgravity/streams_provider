@@ -17,7 +17,7 @@ class SignInProvider implements StreamsProvidable {
 
   // No error on any fields
   Stream<bool> get isAllValid =>
-    [usernameError, passwordError].combineLatest().mapEvery((o) => o == null);
+      [usernameError, passwordError].combineLatest().mapEvery((o) => o == null);
 
   // Methods
   String validateUsername(String username) {
@@ -48,7 +48,8 @@ class SignInProvider implements StreamsProvidable {
   }
 
   void validateMaxLength(String field, String value, int max) {
-    if (value.length > max) throw "The maximum length of $field is $max characters";
+    if (value.length > max)
+      throw "The maximum length of $field is $max characters";
   }
 
   Future<void> dispose() {

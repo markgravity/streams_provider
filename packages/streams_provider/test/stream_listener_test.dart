@@ -68,14 +68,14 @@ void main() {
       await tester.pumpWidget(App(provider, widget));
 
       // First message
-      provider.message.value = message;
+      provider.message.add(message);
       await tester.pumpAndSettle();
       expect(find.text(message), findsOneWidget);
       expect(provider.listenedMessage, equals(message));
 
       // Second
       message = "it's a second message";
-      provider.message.value = message;
+      provider.message.add(message);
       await tester.pumpAndSettle();
       expect(find.text(message), findsOneWidget);
       expect(provider.listenedMessage, equals(message));

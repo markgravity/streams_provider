@@ -19,19 +19,20 @@ class MutableValueStream<T> extends StreamView<T>
         super(subject.stream);
 
   //
-  final BehaviorSubject _subject;
+  final BehaviorSubject<T> _subject;
 
   // ValueStream
   bool get hasValue => _subject.hasValue;
-  T get value => _subject.value;
 
   /// Set and emit the new value
-  set value(T newValue) => _subject.add(newValue);
+  T? get value => _subject.value;
+
+  @Deprecated("Use MutableValueStream.value instead")
+  set value(T? newValue) => _subject.add(newValue!);
 
   // Sink
-  @Deprecated("Use MutableValueStream.value instead")
   void add(T data) {
-    throw UnimplementedError("Use MutableValueStream.value instead");
+    _subject.add(data);
   }
 
   Future<void> close() {
@@ -42,9 +43,5 @@ class MutableValueStream<T> extends StreamView<T>
   ErrorAndStackTrace? get errorAndStackTrace => throw UnimplementedError();
 
   @override
-  ValueWrapper<T>? get valueWrapper => throw UnimplementedError();
-}
-
-class NullValue<T>{
-
+  ValueWrapper<T>? get valueWrapper => _subject.valueWrapper;
 }

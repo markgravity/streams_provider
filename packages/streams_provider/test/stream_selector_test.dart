@@ -13,11 +13,13 @@ class TestWidget extends StatelessWidget {
     return Center(
       child: StreamsSelector0<String>(
         selector: (_) => message,
-        builder: (_, message, __) => message != "" ? Text(
-          message,
-          key: textKey,
-          textDirection: TextDirection.ltr,
-        ) : SizedBox.shrink(),
+        builder: (_, message, __) => message != ""
+            ? Text(
+                message,
+                key: textKey,
+                textDirection: TextDirection.ltr,
+              )
+            : SizedBox.shrink(),
       ),
     );
   }
@@ -81,7 +83,8 @@ class TestWidget3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: StreamsSelector2<MessageProvider, ErrorProvider, String>(
-        selector: (_, provider1, provider2) => provider1.message + provider2.error,
+        selector: (_, provider1, provider2) =>
+            provider1.message + provider2.error,
         builder: (_, message, __) => Text(
           message,
           textDirection: TextDirection.ltr,
@@ -95,7 +98,8 @@ extension StreamExtension<T extends String> on Stream<T> {
   Stream<T> operator +(other) {
     if (other is String) return this.map((o) => o + other) as Stream<T>;
 
-    if (other is Stream<T>) return [this, other].combineLatest().map((o) => o.join("")) as Stream<T>;
+    if (other is Stream<T>)
+      return [this, other].combineLatest().map((o) => o.join("")) as Stream<T>;
 
     throw AssertionError("Type is not supported");
   }
@@ -108,12 +112,11 @@ void main() {
     final stream = MutableValueStream<String>("");
     final message = "It's a message";
     await tester.pumpWidget(TestWidget(stream));
-    stream.value = message;
+    stream.add(message);
     await tester.pumpAndSettle();
     expect(find.text(message), findsOneWidget);
     stream.close();
   });
-
 
   testWidgets("#2 StreamSelector", (tester) async {
     final message = "It's a message";
@@ -122,7 +125,7 @@ void main() {
 
     await tester.pumpWidget(App(provider, widget));
 
-    provider.message.value = message;
+    provider.message.add(message);
     await tester.pumpAndSettle();
     expect(find.text(message), findsOneWidget);
   });
@@ -134,8 +137,8 @@ void main() {
     final widget = TestWidget3();
     await tester.pumpWidget(App(provider, widget, provider2));
 
-    provider.message.value = message;
-    provider2.error.value = message;
+    provider.message.add(message);
+    provider2.error.add(message);
     await tester.pumpAndSettle();
     expect(find.text(message + message), findsOneWidget);
   });
@@ -145,11 +148,11 @@ void main() {
     await tester.pumpWidget(TestWidget(stream));
     expect(find.byKey(TestWidget.textKey), findsNothing);
 
-    stream.value = "test";
+    stream.add("test");
     await tester.pumpAndSettle();
     expect(find.byKey(TestWidget.textKey), findsOneWidget);
 
-    stream.value = "";
+    stream.add("");
     await tester.pumpAndSettle();
     expect(find.byKey(TestWidget.textKey), findsNothing);
 

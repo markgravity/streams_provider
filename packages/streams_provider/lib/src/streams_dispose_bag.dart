@@ -5,10 +5,10 @@ import 'dart:async';
 class StreamsDisposeBag {
   StreamsDisposeBag(List disposables)
       : _disposables = disposables
-                .map(
-                  (o) => _StreamsDisposable(o),
-                )
-                .toList();
+            .map(
+              (o) => _StreamsDisposable(o),
+            )
+            .toList();
 
   //
   List<_StreamsDisposable> _disposables;
@@ -28,7 +28,8 @@ class StreamsDisposeBag {
 }
 
 class _StreamsDisposable {
-  _StreamsDisposable(this.object) : assert(object is Sink || object is StreamSubscription);
+  _StreamsDisposable(this.object)
+      : assert(object is Sink || object is StreamSubscription);
 
   //
   final dynamic object;

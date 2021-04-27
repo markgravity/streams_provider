@@ -8,7 +8,8 @@ import 'streams_listener.dart';
 import 'streams_providable.dart';
 import 'streams_provider.dart';
 
-class MultiStreamsListener0<P extends StreamsProvidable> extends SingleChildStatefulWidget {
+class MultiStreamsListener0<P extends StreamsProvidable>
+    extends SingleChildStatefulWidget {
   const MultiStreamsListener0({
     Key? key,
     this.provider,
@@ -16,7 +17,8 @@ class MultiStreamsListener0<P extends StreamsProvidable> extends SingleChildStat
     this.listeners,
     this.listenablies,
     this.child,
-  })  : assert(listenablies != null || (listeners != null && selectors != null)),
+  })  : assert(
+            listenablies != null || (listeners != null && selectors != null)),
         super(key: key, child: child);
 
   //
@@ -28,13 +30,17 @@ class MultiStreamsListener0<P extends StreamsProvidable> extends SingleChildStat
   ///
   /// Must not be `null` if [listenable] is `null`
   List<Stream Function(BuildContext)> get _selectors =>
-      selectors ?? listenablies!.map((v) => v.selector) as List<Stream Function(BuildContext)>;
+      selectors ??
+      listenablies!.map((v) => v.selector)
+          as List<Stream Function(BuildContext)>;
   final List<Stream Function(BuildContext)>? selectors;
 
   /// A function that will be called if [selector] emits a signal.
   ///
   /// Must not be `null`, if [listenable] is `null`
-  List<StreamsWidgetListener> get _listeners => listeners ?? listenablies!.map((v) => v.handler) as  List<StreamsWidgetListener>;
+  List<StreamsWidgetListener> get _listeners =>
+      listeners ??
+      listenablies!.map((v) => v.handler) as List<StreamsWidgetListener>;
   final List<StreamsWidgetListener>? listeners;
 
   /// A class that will be called [StreamsListenable.handler] if [selector] emits a signal.
@@ -43,10 +49,12 @@ class MultiStreamsListener0<P extends StreamsProvidable> extends SingleChildStat
   final List<StreamsListenable0>? listenablies;
 
   @override
-  SingleChildState<MultiStreamsListener0> createState() => _MultiStreamsListener0State();
+  SingleChildState<MultiStreamsListener0> createState() =>
+      _MultiStreamsListener0State();
 }
 
-class _MultiStreamsListener0State extends SingleChildState<MultiStreamsListener0> {
+class _MultiStreamsListener0State
+    extends SingleChildState<MultiStreamsListener0> {
   List<StreamSubscription> _subscriptions = [];
   @override
   void initState() {
@@ -66,7 +74,8 @@ class _MultiStreamsListener0State extends SingleChildState<MultiStreamsListener0
   }
 
   @override
-  Widget buildWithChild(BuildContext context, Widget? child) => child ?? Container();
+  Widget buildWithChild(BuildContext context, Widget? child) =>
+      child ?? Container();
 
   void _cancelAllSubscriptions() {
     for (final subscription in _subscriptions) {
@@ -83,7 +92,8 @@ class _MultiStreamsListener0State extends SingleChildState<MultiStreamsListener0
   }
 }
 
-class MultiStreamsListener<P extends StreamsProvidable, T1, T2> extends MultiStreamsListener0 {
+class MultiStreamsListener<P extends StreamsProvidable, T1, T2>
+    extends MultiStreamsListener0 {
   MultiStreamsListener({
     Key? key,
     P? provider,
@@ -94,35 +104,40 @@ class MultiStreamsListener<P extends StreamsProvidable, T1, T2> extends MultiStr
     StreamsWidgetListener<T2>? listener2,
     StreamsListenable<P, T2>? listenable2,
     Widget? child,
-  })  : assert((listenable1 != null || (listener1 != null && selector1 != null)) &&
+  })  : assert((listenable1 != null ||
+                (listener1 != null && selector1 != null)) &&
             (listenable2 != null || (listener2 != null && selector2 != null))),
-        super(key: key, child: child, selectors: [
-          (context) {
-            final p = provider ?? StreamsProvider.of<P>(context);
+        super(
+            key: key,
+            child: child,
+            selectors: [
+              (context) {
+                final p = provider ?? StreamsProvider.of<P>(context);
 
-            if (selector1 != null) return selector1(context, p);
+                if (selector1 != null) return selector1(context, p);
 
-            return listenable1!.selector(context, p);
-          },
-          (context) {
-            final p = provider ?? StreamsProvider.of<P>(context);
+                return listenable1!.selector(context, p);
+              },
+              (context) {
+                final p = provider ?? StreamsProvider.of<P>(context);
 
-            if (selector2 != null) return selector2(context, p);
+                if (selector2 != null) return selector2(context, p);
 
-            return listenable2!.selector(context, p);
-          }
-        ], listeners: [
-          listener1 ??
-              (context, data) => listenable1!.handler(
-                    context,
-                    provider ?? StreamsProvider.of(context),
-                    data,
-                  ),
-          listener2 ??
-              (context, data) => listenable2!.handler(
-                    context,
-                    provider ?? StreamsProvider.of(context),
-                    data,
-                  ),
-        ] as List<StreamsWidgetListener>);
+                return listenable2!.selector(context, p);
+              }
+            ],
+            listeners: [
+              listener1 ??
+                  (context, data) => listenable1!.handler(
+                        context,
+                        provider ?? StreamsProvider.of(context),
+                        data,
+                      ),
+              listener2 ??
+                  (context, data) => listenable2!.handler(
+                        context,
+                        provider ?? StreamsProvider.of(context),
+                        data,
+                      ),
+            ] as List<StreamsWidgetListener>);
 }

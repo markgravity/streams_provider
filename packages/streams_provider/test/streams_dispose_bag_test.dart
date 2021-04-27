@@ -11,7 +11,7 @@ void main() {
   //
   final val1 = MockMutableValueStream();
   final val2 = MockMutableValueStream();
-  final bag = StreamsDisposeBag([val1,val2]);
+  final bag = StreamsDisposeBag([val1, val2]);
 
   test("#1 Dispose the bag, all sinks should call close()", () {
     bag.dispose();

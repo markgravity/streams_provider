@@ -1,3 +1,7 @@
+## 0.0.6
+
+* Fix: Unimplemented valueWrapper
+
 ## 0.0.5
 
 * Support `Null safety`

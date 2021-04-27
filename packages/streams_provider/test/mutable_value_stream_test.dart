@@ -21,7 +21,7 @@ void main() {
 
   test("#3 value setter", () {
     stream = MutableValueStream<int>(1);
-    stream.value = 2;
+    stream.add(2);
     expect(stream.value, equals(2));
   });
 
