@@ -2,5 +2,5 @@
 /// want to use streams should implement it.
 abstract class StreamsProvidable {
   /// A function will be called when widget get dispose
-  void dispose();
+  void dispose() {}
 }

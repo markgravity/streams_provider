@@ -283,7 +283,7 @@ packages:
       name: mockito
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.5"
+    version: "5.0.7"
   nested:
     dependency: transitive
     description:
@@ -353,7 +353,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.26.0"
+    version: "0.27.0"
   shelf:
     dependency: transitive
     description:

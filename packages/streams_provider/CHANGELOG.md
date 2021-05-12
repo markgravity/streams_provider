@@ -1,3 +1,11 @@
+## 0.1.0
+
+Refactor with new rxdart version (^0.27.0)
+
+## 0.0.8
+
+* Add: Selector value
+
 ## 0.0.6
 
 * Fix: Unimplemented valueWrapper

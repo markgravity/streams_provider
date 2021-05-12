@@ -1,13 +1,12 @@
 import 'package:flutter/widgets.dart';
-
-import '../mutable_value_stream.dart';
+import 'package:streams_provider/streams_provider.dart';
 
 extension TextEditingControllerWithStreams on TextEditingController {
-  /// A [MutableValueStream] that will
+  /// A [BehaviorSubject] that will
   /// update [text] when a new event is emitted,
   /// also emits a new event when [text] changes
-  MutableValueStream<String> textStream() {
-    final stream = MutableValueStream<String>(this.text);
+  BehaviorSubject<String> textStream() {
+    final stream = BehaviorSubject<String>.seeded(this.text);
     bool isLock = false;
 
     // Set a new text to controller
@@ -31,11 +30,11 @@ extension TextEditingControllerWithStreams on TextEditingController {
     return stream;
   }
 
-  /// A [MutableValueStream] that will
+  /// A [BehaviorSubject] that will
   /// update [selection] when a new event is emitted,
   /// also emits a new event when [selection] changes
-  MutableValueStream<TextSelection> selectionStream() {
-    final stream = MutableValueStream<TextSelection>(this.selection);
+  BehaviorSubject<TextSelection> selectionStream() {
+    final stream = BehaviorSubject<TextSelection>.seeded(this.selection);
     bool isLock = false;
 
     // Set a new text to controller
@@ -59,11 +58,11 @@ extension TextEditingControllerWithStreams on TextEditingController {
     return stream;
   }
 
-  /// A [MutableValueStream] that will
+  /// A [BehaviorSubject] that will
   /// update [value] when a new event is emitted,
   /// also emits a new event when [value] changes
-  MutableValueStream<TextEditingValue> valueStream() {
-    final stream = MutableValueStream<TextEditingValue>(this.value);
+  BehaviorSubject<TextEditingValue> valueStream() {
+    final stream = BehaviorSubject<TextEditingValue>.seeded(this.value);
     bool isLock = false;
 
     // Set a new text to controller

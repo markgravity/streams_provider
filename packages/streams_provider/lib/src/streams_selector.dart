@@ -17,6 +17,20 @@ class StreamsSelector0<T> extends SingleChildStatefulWidget {
     Widget? child,
   }) : super(key: key, child: child);
 
+  factory StreamsSelector0.value({
+    Key? key,
+    required Stream<T> stream,
+    required ValueWidgetBuilder<T> builder,
+    Widget? child,
+  }) {
+    return StreamsSelector0(
+      key: key,
+      selector: (context) => stream,
+      builder: builder,
+      child: child,
+    );
+  }
+
   /// A function that obtains some [InheritedWidget] and map their content into
   /// a new object with only a limited number of properties.
   ///
@@ -72,7 +86,7 @@ class _StreamsSelector0State<T> extends SingleChildState<StreamsSelector0<T>> {
           oldWidget = widget;
           cache = widget.builder(
             context,
-            selected!,
+            selected as T,
             child,
           );
         }

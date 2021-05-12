@@ -9,7 +9,7 @@ class Test {
   }
   final controller = TextEditingController(text: "default");
   // ignore: close_sinks
-  late MutableValueStream stream;
+  late BehaviorSubject stream;
 }
 
 void main() {

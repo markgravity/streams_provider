@@ -4,13 +4,13 @@ import 'package:streams_provider/streams_provider.dart';
 void main() {
   //
   // ignore: close_sinks
-  MutableValueStream? a;
+  BehaviorSubject? a;
   // ignore: close_sinks
-  MutableValueStream? b;
+  BehaviorSubject? b;
 
   setUp(() {
-    a = MutableValueStream(1);
-    b = MutableValueStream(2);
+    a = BehaviorSubject.seeded(1);
+    b = BehaviorSubject.seeded(2);
   });
 
   test("#1 combineLatest()", () async {

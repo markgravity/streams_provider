@@ -26,7 +26,7 @@ class TestWidget extends StatelessWidget {
 }
 
 class MessageProvider implements StreamsProvidable {
-  late final message = MutableValueStream<String>("");
+  late final message = BehaviorSubject<String>.seeded("");
 
   @override
   Future<void> dispose() {
@@ -35,7 +35,7 @@ class MessageProvider implements StreamsProvidable {
 }
 
 class ErrorProvider implements StreamsProvidable {
-  final error = MutableValueStream<String>("");
+  final error = BehaviorSubject<String>.seeded("");
 
   @override
   Future<void> dispose() {
@@ -109,7 +109,7 @@ void main() {
   //
 
   testWidgets("#1 StreamSelector0", (tester) async {
-    final stream = MutableValueStream<String>("");
+    final stream = BehaviorSubject<String>.seeded("");
     final message = "It's a message";
     await tester.pumpWidget(TestWidget(stream));
     stream.add(message);
@@ -144,7 +144,7 @@ void main() {
   });
 
   testWidgets("#4 StreamSelector with null value", (tester) async {
-    final stream = MutableValueStream<String>("null");
+    final stream = BehaviorSubject<String>.seeded("null");
     await tester.pumpWidget(TestWidget(stream));
     expect(find.byKey(TestWidget.textKey), findsNothing);
 

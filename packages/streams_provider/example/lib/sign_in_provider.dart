@@ -8,11 +8,11 @@ class SignInProvider implements StreamsProvidable {
 
   // Username
   final usernameTextController = TextEditingController();
-  MutableValueStream<String> username;
+  BehaviorSubject<String> username;
   Stream<String> get usernameError => username.map((o) => validateUsername(o));
 
   // Password
-  final password = MutableValueStream<String>("");
+  final password = BehaviorSubject<String>.seeded("");
   Stream<String> get passwordError => password.map((o) => validatePassword(o));
 
   // No error on any fields
@@ -48,11 +48,9 @@ class SignInProvider implements StreamsProvidable {
   }
 
   void validateMaxLength(String field, String value, int max) {
-    if (value.length > max)
-      throw "The maximum length of $field is $max characters";
+    if (value.length > max) throw "The maximum length of $field is $max characters";
   }
 
-  Future<void> dispose() {
-    return StreamsDisposeBag([username, password]).dispose();
-  }
+  @override
+  void dispose() {}
 }

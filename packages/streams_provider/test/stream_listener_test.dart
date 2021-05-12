@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:streams_provider/streams_provider.dart';
 
 class MessageProvider implements StreamsProvidable {
-  final message = MutableValueStream<String>("");
+  final message = BehaviorSubject<String>.seeded("");
   late String listenedMessage;
 
   @override
