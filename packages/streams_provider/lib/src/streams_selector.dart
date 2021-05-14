@@ -69,6 +69,7 @@ class _StreamsSelector0State<T> extends SingleChildState<StreamsSelector0<T>> {
   Widget buildWithChild(BuildContext context, Widget? child) {
     return StreamBuilder<T>(
       stream: stream,
+      initialData: value,
       builder: (context, snapshot) {
         if (snapshot.hasError) throw snapshot.error!;
 

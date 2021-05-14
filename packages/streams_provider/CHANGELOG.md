@@ -1,3 +1,7 @@
+## 0.1.1
+
+Mirror bugfixes
+
 ## 0.1.0
 
 Refactor with new rxdart version (^0.27.0)

@@ -1,6 +1,6 @@
 name: streams_provider
 description: It provides an elegent and effectively ways to use stream in Provider.
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/markgravity/streams_provider/tree/master/packages/streams_provider
 
 environment:
